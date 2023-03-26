@@ -1,0 +1,29 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Run = exports.Add = exports.Search = void 0;
+const config_json_1 = require("../config.json");
+const sqlite = require("sqlite-sync");
+sqlite.connect(config_json_1.Config.DataPath);
+sqlite.run("create table if not exists data(xuid,name,x,y,z,bn,ev,month,date,hour,min,sec,pass);", function (res) {
+    if (res.error)
+        throw res.error;
+});
+function Search(cmd) {
+    return JSON.parse(JSON.stringify(sqlite.run(cmd)));
+}
+exports.Search = Search;
+function Add(Xuid, Name, X, Y, Z, Block, Ev, Month, Date, Hour, Min, Sec, Pass) {
+    sqlite.insert("data", { xuid: Xuid, name: Name, x: X, y: Y, z: Z, bn: Block, ev: Ev, month: Month, date: Date, hour: Hour, min: Min, sec: Sec, pass: Pass }, function (res) {
+        if (res.error)
+            throw res.error;
+    });
+}
+exports.Add = Add;
+function Run(cmd) {
+    sqlite.run(cmd, function (res) {
+        if (res.error)
+            throw res.error;
+    });
+}
+exports.Run = Run;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiU3FsLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiU3FsLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7OztBQUFBLGdEQUF1QztBQUN2QyxNQUFNLE1BQU0sR0FBRyxPQUFPLENBQUMsYUFBYSxDQUFDLENBQUM7QUFDdEMsTUFBTSxDQUFDLE9BQU8sQ0FBQyxvQkFBTSxDQUFDLFFBQVEsQ0FBQyxDQUFDO0FBQ2hDLE1BQU0sQ0FBQyxHQUFHLENBQUMsc0ZBQXNGLEVBQUMsVUFBUyxHQUFvQjtJQUMzSCxJQUFHLEdBQUcsQ0FBQyxLQUFLO1FBQ1IsTUFBTSxHQUFHLENBQUMsS0FBSyxDQUFDO0FBQ3hCLENBQUMsQ0FBQyxDQUFDO0FBQ0gsU0FBZ0IsTUFBTSxDQUFDLEdBQVU7SUFDL0IsT0FBTyxJQUFJLENBQUMsS0FBSyxDQUFDLElBQUksQ0FBQyxTQUFTLENBQUMsTUFBTSxDQUFDLEdBQUcsQ0FBQyxHQUFHLENBQUMsQ0FBQyxDQUFDLENBQUE7QUFDcEQsQ0FBQztBQUZELHdCQUVDO0FBQ0QsU0FBZ0IsR0FBRyxDQUFDLElBQVcsRUFBQyxJQUFXLEVBQUMsQ0FBUSxFQUFDLENBQVEsRUFBQyxDQUFRLEVBQUMsS0FBWSxFQUFDLEVBQVMsRUFBQyxLQUFZLEVBQUMsSUFBVyxFQUFDLElBQVcsRUFBQyxHQUFVLEVBQUMsR0FBVSxFQUFDLElBQVc7SUFDbEssTUFBTSxDQUFDLE1BQU0sQ0FBQyxNQUFNLEVBQUMsRUFBQyxJQUFJLEVBQUUsSUFBSSxFQUFDLElBQUksRUFBQyxJQUFJLEVBQUMsQ0FBQyxFQUFDLENBQUMsRUFBQyxDQUFDLEVBQUMsQ0FBQyxFQUFDLENBQUMsRUFBQyxDQUFDLEVBQUMsRUFBRSxFQUFDLEtBQUssRUFBQyxFQUFFLEVBQUMsRUFBRSxFQUFDLEtBQUssRUFBQyxLQUFLLEVBQUMsSUFBSSxFQUFDLElBQUksRUFBQyxJQUFJLEVBQUMsSUFBSSxFQUFDLEdBQUcsRUFBQyxHQUFHLEVBQUMsR0FBRyxFQUFDLEdBQUcsRUFBQyxJQUFJLEVBQUMsSUFBSSxFQUFDLEVBQUUsVUFBUyxHQUFvQjtRQUM3SixJQUFHLEdBQUcsQ0FBQyxLQUFLO1lBQ1IsTUFBTSxHQUFHLENBQUMsS0FBSyxDQUFDO0lBQ3RCLENBQUMsQ0FBQyxDQUFDO0FBQ0wsQ0FBQztBQUxELGtCQUtDO0FBQ0QsU0FBZ0IsR0FBRyxDQUFDLEdBQVU7SUFDNUIsTUFBTSxDQUFDLEdBQUcsQ0FBQyxHQUFHLEVBQUMsVUFBUyxHQUFvQjtRQUN4QyxJQUFHLEdBQUcsQ0FBQyxLQUFLO1lBQ1IsTUFBTSxHQUFHLENBQUMsS0FBSyxDQUFDO0lBQ3hCLENBQUMsQ0FBQyxDQUFDO0FBQ0wsQ0FBQztBQUxELGtCQUtDIn0=
